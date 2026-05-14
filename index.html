@@ -18,28 +18,19 @@
     input[type=date]::-webkit-calendar-picker-indicator { filter: invert(1); }
     body { padding-bottom: env(safe-area-inset-bottom); }
     #loading { display:flex; align-items:center; justify-content:center; height:100vh; color:#475569; font-family:sans-serif; font-size:14px; }
-    #error   { display:none; padding:24px; color:#f87171; font-family:sans-serif; font-size:13px; white-space:pre-wrap; }
+    #error   { display:none; padding:24px; color:#f87171; font-family:sans-serif; font-size:13px; white-space:pre-wrap; word-break:break-all; }
   </style>
 </head>
 <body>
   <div id="root"><div id="loading">読み込み中…</div></div>
   <div id="error"></div>
 
-  <!-- React 18 固定バージョン -->
-  <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-  <!-- Babel Standalone 固定バージョン -->
-  <script src="https://unpkg.com/@babel/standalone@7.23.10/babel.min.js"></script>
+  <!-- jsDelivr CDN（unpkgの代替） -->
+  <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.10/babel.min.js"></script>
   <!-- Google Identity Services（Drive連携用） -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-  <script>
-    // CDN読み込み確認
-    window.addEventListener('error', function(e) {
-      document.getElementById('error').style.display = 'block';
-      document.getElementById('error').textContent = '読み込みエラー: ' + e.message + '\n' + e.filename;
-    }, true);
-  </script>
 
   <script type="text/babel" data-presets="react">
     const { useState, useEffect, useMemo } = React;
@@ -1541,7 +1532,7 @@ const styles = {
       root.render(<App />);
     } catch(e) {
       document.getElementById('error').style.display = 'block';
-      document.getElementById('error').textContent = 'レンダリングエラー: ' + e.message + '\n' + e.stack;
+      document.getElementById('error').textContent = 'エラー: ' + e.message + '\n' + e.stack;
     }
   </script>
 </body>
